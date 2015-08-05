@@ -1,1 +1,1 @@
-export default "It works from content.js. 12366";
+export default "It works from content.js.";
