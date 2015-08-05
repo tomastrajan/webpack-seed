@@ -2,7 +2,7 @@ var _ = require('lodash');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var configDefault = {
+var paramsDefault = {
     debug: true,
     devtool: 'source-map',
     output: {
@@ -16,7 +16,7 @@ var configDefault = {
         new CleanWebpackPlugin(['dist', 'build'])
     ]
 };
-var configTargetSpecific = {
+var paramsPerTarget = {
     DEV: {
         //devtool: 'eval-source-map',
         output: {
@@ -35,7 +35,7 @@ var configTargetSpecific = {
     }
 };
 var TARGET = process.env.TARGET || 'BUILD';
-var config = _.merge(configDefault, configTargetSpecific[TARGET]);
+var params = _.merge(paramsDefault, paramsPerTarget[TARGET]);
 printBuildInfo();
 
 module.exports = {
@@ -43,8 +43,8 @@ module.exports = {
         app: './src/app.js'
     },
     output: {
-        path: config.output.path,
-        filename: config.output.filename
+        path: params.output.path,
+        filename: params.output.filename
     },
     module: {
         loaders: [
@@ -57,19 +57,19 @@ module.exports = {
             template: './src/index.html',
             inject: 'body'
         })
-    ].concat(config.plugins),
+    ].concat(params.plugins),
     progress: true,
     colors: true,
     devtool: 'eval-source-map',
     devServer: {
-        port: config.server.port
+        port: params.server.port
     }
 };
 
 function printBuildInfo() {
     console.log('\nStarting "' + TARGET + '" build');
     if (TARGET === 'DEV') {
-        console.log('Dev server: http://localhost:' + config.server.port +
+        console.log('Dev server: http://localhost:' + params.server.port +
             '/webpack-dev-server/index.html\n\n');
     } else {
         console.log('\n\n');
