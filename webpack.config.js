@@ -4,7 +4,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var paramsDefault = {
     debug: true,
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     output: {
         path: './build',
         filename: '[name].[hash].js'
@@ -39,8 +39,11 @@ var params = _.merge(paramsDefault, paramsPerTarget[TARGET]);
 printBuildInfo();
 
 module.exports = {
+    resolve: {
+        extensions: ['', '.ts', '.js']
+    },
     entry: {
-        app: './src/app.js'
+        app: './src/app.ts'
     },
     output: {
         path: params.output.path,
@@ -48,7 +51,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.js$/, loader: 'babel?optional[]=runtime&stage=0', exclude: /node_modules/},
+            {test: /\.ts$/, loader: 'awesome-typescript', exclude: /node_modules/},
             {test: /\.css$/, loader: 'style!css'}
         ]
     },
@@ -60,7 +63,6 @@ module.exports = {
     ].concat(params.plugins),
     progress: true,
     colors: true,
-    devtool: 'eval-source-map',
     devServer: {
         port: params.server.port
     }
