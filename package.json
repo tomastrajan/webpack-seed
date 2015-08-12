@@ -4,9 +4,9 @@
   "description": "Webpack seed",
   "main": "src/app.js",
   "scripts": {
-    "dev": "set TARGET=DEV&&webpack-dev-server",
+    "dev": "webpack-dev-server --TARGET=DEV",
     "build": "webpack",
-    "prod": "set TARGET=PROD&&webpack -p",
+    "prod": "webpack -p --TARGET=PROD",
     "test": " test"
   },
   "author": "",
@@ -23,6 +23,7 @@
     "css-loader": "^0.15.6",
     "file-loader": "^0.8.4",
     "html-webpack-plugin": "^1.6.1",
+    "minimist": "^1.1.3",
     "style-loader": "^0.12.3",
     "typescript": "^1.5.3",
     "webpack": "^1.10.5",

@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var minimist = require('minimist');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -34,7 +35,7 @@ var paramsPerTarget = {
         }
     }
 };
-var TARGET = process.env.TARGET || 'BUILD';
+var TARGET = minimist(process.argv.slice(2)).TARGET || 'BUILD';
 var params = _.merge(paramsDefault, paramsPerTarget[TARGET]);
 printBuildInfo();
 
