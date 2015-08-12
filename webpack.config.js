@@ -5,7 +5,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var paramsDefault = {
     debug: true,
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     output: {
         path: './build',
         filename: '[name].[hash].js'
@@ -62,11 +62,13 @@ module.exports = {
             inject: 'body'
         })
     ].concat(params.plugins),
-    progress: true,
-    colors: true,
     devServer: {
         port: params.server.port
-    }
+    },
+    debug: params.debug,
+    devtool: params.devtool,
+    progress: true,
+    colors: true
 };
 
 function printBuildInfo() {
